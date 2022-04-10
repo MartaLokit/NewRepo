@@ -9,12 +9,11 @@ namespace PractTask1.Busines
 {
     public class NumberWord
     {
-        Sort sort = new Sort();
         Read read = new Read();
         public void Number()
         {
             string text = read.ReadFile().ToString();
-            string[] allwords = text.Split(' ', '.',',','\n');
+            string[] allwords = text.Split(' ', '.', ',', '\n', '\t', '-');
             var unique = (from word in allwords select word.ToLower()).Distinct().OrderBy(name => name);
             foreach (var word in unique)
             {

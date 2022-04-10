@@ -10,6 +10,7 @@ namespace PractTask1.Busines
     {
         Sort sort = new Sort();
         Read read = new Read();
+        Save save = new Save();
         NumberWord number = new NumberWord();
         NumberChar numberChar = new NumberChar();
         public void Read()
@@ -27,6 +28,10 @@ namespace PractTask1.Busines
         public void NumberChar()
         {
             numberChar.Number();
+        }
+        public void Save()//сделать
+        {
+            save.SaveText();
         }
     }
 }

@@ -9,13 +9,13 @@ namespace PractTask1.Busines
         Action action = new Action();
         void Cycle()
         {
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 80; i++)
                 System.Console.Write('*');
         }
         public void Load()
         {
             Cycle();
-            System.Console.WriteLine("\n1-Вывод содержимого 2-Слова 3-Сортировка 4-Символы 5-Выход");
+            System.Console.WriteLine("\n1-Вывод содержимого 2-Слова 3-Символы 4-Сортировка 5-Выход");
             Cycle();
             System.Console.WriteLine(" ");
         }
@@ -30,10 +30,10 @@ namespace PractTask1.Busines
                     action.NumberWord();
                     break;
                 case 3:
-                    action.Sort();
+                    action.NumberChar();
                     break;
                 case 4:
-                    action.NumberChar();
+                    action.Sort();         
                     break;
                 case 5:
                     Environment.Exit(0);
