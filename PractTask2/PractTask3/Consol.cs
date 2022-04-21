@@ -6,7 +6,7 @@ namespace PractTask3
 {
     public class Consol
     {
-        CreateNumberPhone create;
+        BilingSystem biling = new BilingSystem();
         void Method()
         {
             for (int i = 0; i < 40; i++)
@@ -17,17 +17,29 @@ namespace PractTask3
         public Consol()
         {
             Method();
-            Console.Write("\n1-Регистрация\n");
+            Console.Write("\n1-Регистрация 9-Провайдер\n");
             Method();
             Console.Write("\n");
+            int number = int.Parse(Console.ReadLine());
+            switch (number)
+            {
+                case 1:
+                    Registretion();
+                    break;
+                case 9:
+                    biling.SelectAll();
+                    break;
+            }
         }
-        void DateUser(string NF)
+        void Registretion()
         {
+            Console.Write("Фамилия имя:");
+            string NF = Console.ReadLine();
             string[] splitText = NF.Split(' ');
             var name = splitText[1];
             var lastName = splitText[0];
-            new Insert(create.Random(), name, lastName);
-
+            biling.Registration(name, lastName);
         }
+        
     }
 }

@@ -6,11 +6,9 @@ namespace PractTask3
     {
         static void Main(string[] args)
         {
-             new Consol();
-            /// new Select();
-            CreateNumberPhone create = new CreateNumberPhone();
-            create.Random();
-
+            CollectionNumberPhone phone = new CollectionNumberPhone();
+            BilingSystem biling = new BilingSystem();
+            new Consol();
         }
     }
 }

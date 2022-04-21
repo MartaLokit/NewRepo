@@ -6,31 +6,26 @@ namespace PractTask3
 {
     public class DelegateNumberPhone
     {
-        public delegate string MessageCondition();
-        public event MessageCondition? Notify;
-        delegate void Insert(string numberPhone, string name, string lastName);
-        public DelegateNumberPhone(bool action)
+        public delegate string MessageCondition(string mess);
+        public event MessageCondition message;
+        public DelegateNumberPhone(bool conditions)
         {
-            MessageCondition message;
-            Insert insert;
-            if (action == true)
+            if(conditions==true)
             {
-                object p = Notify?.Invoke($"{MessagTrue}");
-                //message = MessagTrue;
+                Console.WriteLine(MessagTrue()); 
             }
-            else
+            if (conditions == false)
             {
-                insert = MessagFalse;
+                Console.WriteLine(MessagFalse()); 
             }
         }
         public string MessagTrue()
         {
-            return "Пользователь с такими данными уже есть";
-            //new Insert();
+            return message("Пользователь с такими данными уже есть");
         }
-        public void MessagFalse(string numberPhone, string name, string lastName)
+        public string MessagFalse()
         {
-            new Insert(numberPhone, name, lastName);         
+            return message("Cпасибо за регистрацию, ваш номер телефона");
         }
     }
 }
