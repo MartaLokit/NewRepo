@@ -1,75 +1,58 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
 using System.Text;
-using System.Configuration;
 
 namespace PractTask3
 {
     public class BilingSystem
     {
-        private DataSet dataSet = new DataSet();
-        private SqlDataAdapter adapter=new SqlDataAdapter();
-        private SqlConnection connection;
-        private SqlCommand command;
-        private CollectionNumberPhone numberPhone= new CollectionNumberPhone();
-        private void Connection()
+        CollectionNumberPhone collection = new CollectionNumberPhone();
+        public void InsertDataUsers(string name, string lastName)
         {
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString);
-            connection.Open();
-            //if (connection.State == ConnectionState.Open)
-            //    Console.WriteLine("Подключено");
-        }
-        public int Select(string name, string lastName)
-        {
-            Connection();
-            command = new SqlCommand("Select [ID] From [DataUsers]" +
-               $"where [Name] = N'{name}' and [LastName] = N'{lastName}'",connection);
-            return command.ExecuteNonQuery();
+            using (BilingSystemContext context = new BilingSystemContext())
+            {
+                DataUsers data = new DataUsers() { Name = $"{name}", LastName = $"{lastName}", Phone =$"{collection.Random()}"};
+                context.users.Add(data);
+                context.SaveChanges();
+            }
         }
         public void SelectAll()
         {
-            Connection();
-            adapter = new SqlDataAdapter("Select * From[DataUsers]", connection);
-            adapter.Fill(dataSet);
-            foreach (DataTable data in dataSet.Tables)
+            using (BilingSystemContext context = new BilingSystemContext())
             {
-                foreach (DataColumn column in data.Columns)
+                var users = context.users;
+                foreach (DataUsers data in users)
                 {
-                    Console.Write($"\t{column.ColumnName}");                 
-                }
-                Console.WriteLine();
-                foreach (DataRow dataRow in data.Rows)
-                {
-                    var cells = dataRow.ItemArray;
-                    foreach (object cell in cells)
-                    {
-                        Console.Write($"\t{cell}");                       
-                    }
-                    Console.WriteLine();
+                    Console.WriteLine($"ID:{data.ID} | Name: {data.Name} | LastName: {data.LastName} | NumberPhone: {data.Phone}");
                 }
             }
         }
-        public string InsertDataUser(string name, string lastName)
+        int SelectRegistration(string name,string lastName)
         {
-            Connection();
-            string phone = numberPhone.Random();
-            command = new SqlCommand("Insert Into [DataUsers](Name,LastName,Phone) Values(@Name, @LastName, @Phone)", connection);
-            command.Parameters.AddWithValue("Name", name);
-            command.Parameters.AddWithValue("LastName", lastName);
-            command.Parameters.AddWithValue("Phone", phone);
-            return command.ExecuteNonQuery().ToString();
+            using (BilingSystemContext context = new BilingSystemContext())
+            {
+                var users = context.users.Where(u=> u.Name==name && u.LastName==lastName);
+                return users.Count();
+            }
+        }
+        public string SelectName(string name)
+        {
+            using (BilingSystemContext context = new BilingSystemContext())
+            {
+                var users = context.users.Where(u => u.Name == name);
+                return users.ToString();
+            }
         }
         public void Registration(string name, string lastName)
         {
-            if(Select(name,lastName)>=1)
+            if(SelectRegistration(name,lastName)>=1)
             {
-                DelegateNumberPhone delegat=new DelegateNumberPhone(true);
+                DelegateNumberPhone delegat = new DelegateNumberPhone(true);
             }
             else
             {
-                InsertDataUser(name, lastName);
+                InsertDataUsers(name, lastName);
                 DelegateNumberPhone delegat = new DelegateNumberPhone(false);
             }
         }

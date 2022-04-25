@@ -17,7 +17,7 @@ namespace PractTask3
         public Consol()
         {
             Method();
-            Console.Write("\n1-Регистрация 9-Провайдер\n");
+            Console.Write("\n1-Регистрация 2-Вызов 9-Провайдер\n");
             Method();
             Console.Write("\n");
             int number = int.Parse(Console.ReadLine());
@@ -26,9 +26,12 @@ namespace PractTask3
                 case 1:
                     Registretion();
                     break;
+                case 2:
+                    new Call();
+                    break;
                 case 9:
                     biling.SelectAll();
-                    break;
+                      break;
             }
         }
         void Registretion()

@@ -14,7 +14,7 @@ namespace PractTask3
             {
                 Console.WriteLine(MessagTrue()); 
             }
-            if (conditions == false)
+            if (conditions==false)
             {
                 Console.WriteLine(MessagFalse()); 
             }

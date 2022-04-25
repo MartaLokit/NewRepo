@@ -7,7 +7,7 @@ namespace PractTask3
         static void Main(string[] args)
         {
             CollectionNumberPhone phone = new CollectionNumberPhone();
-            BilingSystem biling = new BilingSystem();
+            DataUsers biling = new DataUsers();
             new Consol();
         }
     }
